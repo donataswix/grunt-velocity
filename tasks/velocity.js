@@ -19,17 +19,16 @@ module.exports = function(grunt) {
     Engine = require('velocity').Engine,
       count = 0;
 
+    var data = options.data;
+    delete options.data;
+
+    if (typeof data === "string" && !grunt.file.exists(data)) {
+      grunt.log.warn('Data file"' + data + '" not found.');
+      return false;
+    }
+
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
-
-      var data = options.data;
-      delete options.data;
-
-      if (options.data && !grunt.file.exists(options.data)) {
-        grunt.log.warn('Data file"' + options.data + '" not found.');
-        return false;
-      }
-
       f.src.forEach(function(file) {
         grunt.log.ok('Processing ' + file);
 
@@ -64,9 +63,7 @@ module.exports = function(grunt) {
       var output = engine.render(data);
 
       // Write the destination file.
-      grunt.file.write(dest + srcFile.replace(/.*\//, '').replace('.vm',''), output);
-
-
+      grunt.file.write(dest, output);
     }
   });
 
