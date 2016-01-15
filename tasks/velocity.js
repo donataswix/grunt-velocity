@@ -17,7 +17,7 @@ module.exports = function(grunt) {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options(),
     Engine = require('velocity').Engine,
-      count = 0;
+      count;
 
     var data = options.data;
     delete options.data;
@@ -29,6 +29,8 @@ module.exports = function(grunt) {
 
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
+      count = 0;
+
       f.src.forEach(function(file) {
         grunt.log.ok('Processing ' + file);
 
@@ -37,7 +39,8 @@ module.exports = function(grunt) {
           return false;
         }
 
-        parseVelocity(file, f.dest, Engine, data, options);
+        var dest = f.orig.expand ? f.dest : (f.dest + file.replace(/.*\//, '').replace('.vm',''));
+        parseVelocity(file, dest, Engine, data, options);
         count++;
       });
 

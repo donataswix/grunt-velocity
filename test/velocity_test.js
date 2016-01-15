@@ -30,11 +30,24 @@ exports.velocity = {
   default_options: function(test) {
     test.expect(2);
 
-    var actual = grunt.file.read('tmp/default_options/test/fixtures/testing.html');
+    var actual = grunt.file.read('tmp/default_options/testing');
     var expected = grunt.file.read('test/expected/default_options.1');
     test.equal(actual, expected, 'Velocity template is not as expected.');
 
-    var actual2 = grunt.file.read('tmp/default_options/test/fixtures/testing2.html');
+    var actual2 = grunt.file.read('tmp/default_options/testing2');
+    var expected2 = grunt.file.read('test/expected/default_options.2');
+    test.equal(actual2, expected2, 'Velocity template is not as expected.');
+
+    test.done();
+  },
+  expand_support: function(test) {
+    test.expect(2);
+
+    var actual = grunt.file.read('tmp/expand_support/test/fixtures/testing.html');
+    var expected = grunt.file.read('test/expected/default_options.1');
+    test.equal(actual, expected, 'Velocity template is not as expected.');
+
+    var actual2 = grunt.file.read('tmp/expand_support/test/fixtures/testing2.html');
     var expected2 = grunt.file.read('test/expected/default_options.2');
     test.equal(actual2, expected2, 'Velocity template is not as expected.');
 

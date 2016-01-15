@@ -34,10 +34,18 @@ module.exports = function(grunt) {
         options: {
           data: 'test/fixtures/test-data.json'
         },
+        files: {
+          'tmp/default_options/': ['test/fixtures/**/*.vm']
+        }
+      },
+      expand_support: {
+        options: {
+          data: 'test/fixtures/test-data.json'
+        },
         files: [{
           expand: true,
           src: 'test/fixtures/**/*.vm',
-          dest: 'tmp/default_options/',
+          dest: 'tmp/expand_support/',
           ext: '.html'
         }]
       }
